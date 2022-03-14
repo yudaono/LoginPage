@@ -20,24 +20,24 @@ const password = ref('')
 
 const errors = ref({})
 
-const schema = yup.object().shape({
-    password: yup.string().required(),
-    username: yup.string().required()
+const schemaLogin = yup.object().shape({
+    password: yup.string().required().min(8),
+    username: yup.string().required().min(4)
 })
 
 const submit = () => {
     console.log("test", username.value)
-    schema.validate({
+    schemaLogin.validate({
         username: username.value,
         password: password.value
     })
-        .then((value) => {
-            alert("success")
-        })
-        .catch((error) => {
-            errors.value = error.errors
-            console.log(errors)
-        })
+    .then((value) => {
+        alert("success")
+    })
+    .catch((error) => {
+        errors.value = error.errors
+        console.log(errors)
+    })
 }
 
 </script>
@@ -52,8 +52,8 @@ const submit = () => {
                     <div
                         class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0"
                     >
-                        <div class="rounded-t mb-0 px-6 py-6">
-                            <div class="btn-wrapper text-center">
+                        <div class="rounded-t mb-0 px-4 lg:px-10 py-10">
+                            <div class="btn-wrapper text-left">
                                 <SignButton
                                     @click="goTo('signin')"
                                     text="Sign In"
@@ -63,7 +63,6 @@ const submit = () => {
                                     text="Sign Up"
                                 />
                             </div>
-                            <hr class="mt-6 border-b-1 border-gray-400" />
                         </div>
 
                         <!-- v-if models Section -->
@@ -73,16 +72,16 @@ const submit = () => {
                                 <div class="relative w-full mb-3">
                                     <InputForm
                                         v-model="username"
-                                        label="Usernem"
-                                        placeholder="usernama"
+                                        label="Username"
+                                        placeholder="username"
                                         type="email"
                                     />
                                 </div>
                                 <div class="relative w-full mb-3">
                                     <InputForm
                                         v-model="password"
-                                        label="Usernem"
-                                        placeholder="passwada"
+                                        label="Password"
+                                        placeholder="password"
                                         type="password"
                                     />
                                 </div>
